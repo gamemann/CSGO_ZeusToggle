@@ -3,12 +3,24 @@
 #include <cstrike>
 #include <clientprefs>
 
+#define PL_VERSION "1.1"
+
+/*
+	CHANGELOG:
+	
+	1.0:
+		- Release
+	1.1:
+		- Organized Code.
+		- Ready for AlliedMods Release.
+*/
+
 public Plugin:myinfo = {
 	name = "[CS:GO] Zeus Toggle",
 	description = "Toggle the Zeus on spawn!",
 	author = "Roy (Christian Deacon)",
-	version = "1.0",
-	url = "TheDevelopingCommunity.com"
+	version = PL_VERSION,
+	url = "GFLClan.com & AlliedMods.net & TheDevelopingCommunity.com"
 };
 
 // ConVars
@@ -17,7 +29,7 @@ new Handle:g_hDefault = INVALID_HANDLE;
 // Cookies
 new Handle:g_hClientCookie = INVALID_HANDLE;
 
-// Variables
+// Other
 new bool:bSWZ[MAXPLAYERS+1];	// Spawn With Zeus (SWZ)
 
 public OnPluginStart() {
@@ -27,6 +39,9 @@ public OnPluginStart() {
 	// ConVars
 	g_hDefault = CreateConVar("sm_zt_default", "0", "0 = Zeus off, 1 = Zeus on");
 	
+	// AlliedsMod Release
+	CreateConVar("sm_zt_version", PL_VERSION, "Toggle Zeus's plugin version.");
+	
 	// Cookies
 	g_hClientCookie = RegClientCookie("zeustoggle", "Whether you spawn with a Zeus or not...", CookieAccess_Private);
 	
@@ -34,7 +49,7 @@ public OnPluginStart() {
 	RegConsoleCmd("sm_zeus", Command_Zeus, "Toggle whether you want the Zeus on spawn or not");
 	
 	// Config
-	AutoExecConfig(true, "sm_zeustoggle");
+	AutoExecConfig(true, "sm_ZeusToggle");
 	
 	// Cookies code
 	for (new i = MaxClients; i > 0; --i) {
